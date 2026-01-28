@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 
-// --- CONFIGURATION ---
-const PRIMARY_COLOR = "#1173d4"; // Your brand blue
-
 export default function Dashboard() {
   const [apiStatus, setApiStatus] = useState("Checking...");
   const [activeLink, setActiveLink] = useState("Dashboard");
@@ -48,7 +45,7 @@ export default function Dashboard() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
-           {/* API Badge (Added back in for utility) */}
+           {/* API Badge */}
            <div className={`mr-4 px-2 py-1 rounded text-[10px] font-bold border ${apiStatus === 'Online' ? 'bg-green-50 text-green-600 border-green-200' : 'bg-red-50 text-red-600 border-red-200'}`}>
               API: {apiStatus}
            </div>
@@ -272,19 +269,6 @@ function SidebarItem({ icon, label, active, hasSubmenu, onClick }: any) {
 }
 
 function IncidentRow({ type, desc, loc, status, color, time }: any) {
-  const badgeColor = {
-    amber: "bg-amber-50 text-amber-600",
-    blue: "bg-blue-50 text-blue-600",
-    emerald: "bg-emerald-50 text-emerald-600",
-    red: "bg-red-50 text-red-600"
-  }[color] || "bg-slate-100";
-  
-  const dotColor = {
-     amber: "bg-amber-500 text-amber-600",
-     blue: "bg-blue-500 text-blue-600",
-     emerald: "bg-emerald-500 text-emerald-600",
-  }[color];
-
   return (
     <tr className="hover:bg-slate-50 transition-colors">
       <td className="px-6 py-5 whitespace-nowrap">
@@ -343,3 +327,43 @@ function PaneHeader({ icon, title }: any) {
          <span className="material-symbols-outlined text-[18px] text-slate-400">{icon}</span>
          <span className="text-[14px] font-bold text-black tracking-wide">{title}</span>
       </div>
+   );
+}
+
+function QuizCard({ title, category, time, timeColor }: any) {
+   return (
+      <div className="p-3 border border-slate-100 rounded-lg hover:border-[#1173d4]/30 transition-colors group cursor-pointer">
+         <p className="text-[12px] font-bold text-slate-800 mb-1 group-hover:text-[#1173d4]">{title}</p>
+         <div className="flex items-center justify-between">
+            <span className="text-[10px] font-medium text-slate-500">{category}</span>
+            <span className={`text-[10px] font-bold ${timeColor}`}>{time}</span>
+         </div>
+      </div>
+   );
+}
+
+function CourseItem({ title, percent, color }: any) {
+   return (
+      <div>
+         <div className="flex justify-between items-center mb-1.5">
+            <p className="text-[11px] font-semibold text-slate-700 truncate">{title}</p>
+            <span className="text-[10px] font-bold text-slate-400">{percent}%</span>
+         </div>
+         <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+            <div className={`h-full ${color}`} style={{ width: `${percent}%` }}></div>
+         </div>
+      </div>
+   );
+}
+
+function DateItem({ month, day, label }: any) {
+   return (
+      <div className="flex items-center gap-3">
+         <div className="bg-[#1173d4] rounded p-1 text-center min-w-[36px]">
+            <p className="text-[8px] font-bold text-white uppercase">{month}</p>
+            <p className="text-[12px] font-black text-white">{day}</p>
+         </div>
+         <p className="text-[12px] font-medium text-black leading-tight">{label}</p>
+      </div>
+   );
+}
