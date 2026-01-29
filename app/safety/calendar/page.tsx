@@ -1,0 +1,6 @@
+// FIX: Use ../../../
+import CalendarView from "../../../components/views/CalendarView";
+
+export default function Page() {
+  return <CalendarView title="Safety Calendar" />;
+}
